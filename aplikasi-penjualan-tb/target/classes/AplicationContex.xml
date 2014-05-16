@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+		  http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context 
+          http://www.springframework.org/schema/context/spring-context.xsd
+          http://www.springframework.org/schema/tx 
+          http://www.springframework.org/schema/tx/spring-tx.xsd
+          
+          http://www.springframework.org/schema/data/jpa
+		  http://www.springframework.org/schema/data/jpa/string-jpa.xsd
+">
+
+<context:property-placeholder location="classpath*jdbc.properties"/>
+
+<context:component-scan base-package="net.smktarunabhakti,penjualan"></context:component-scan>
+<!-- <jpa:repositories base-package="net.smktarunabhakti.penjualan.dao"></jpa:repositories> -->
+<context:annotation-config/>
+<tx:annotation-driven/>
+
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-metod="close" p:driverClassName="${jdbc.driver}" p:url="${jdbc.url}" p:username="${jdbc.username}" p:password="${jdbc password}" p:maxWait="40000" p:maxActive="80"p:maxIdle="20" />
+	<bean class="org.springframework.orm.joa.JpaTransactionManager" id="transactionmanager"/>
+	<property name="entityManagerFactory" ref="entitryManagerFactory"/>
+	<property name="jpaDialect">
+		<bean class="org.springframwork.orm.jpa.vendor.HibernateJpaDialect"/>
+	</property>
+	</property>
+</bean>
+
+<bean id="entitryManagerFactory"
+	class="org.springframework.orm.jpa.LocalCountainerEntryManagerFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="packagesToScane"
+			value="net.smktarunabhakti.penjualan.domain"/>
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframwork.orm.jpa.vendor.HibernateJpaVendorAdapter">
+			<property name="databasePlatform" value="${hibernate.dialect}"></property>
+			<property name="showSql" value="true"></property>
+			<property name="generateDdl" value="false"></property>
+			</bean>
+		</property>
+	</bean>
+
+<bean id="sessionFactory"
+	class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+	p:dataSource-ref="dataSource"
+	p:configLocation="net/smktarunabhakti/penjualan/hibernate/cfg.xml">
+	
+</bean>
+
+
+
+
+</beans>
