@@ -5,5 +5,4 @@
  * @author miftahul
  * @author MProject32
  */
-
-package net.smktarunabhakti.penjualan.domain;
+package net.smktarunabhakti.service.impl;

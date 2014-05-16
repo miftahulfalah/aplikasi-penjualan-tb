@@ -12,15 +12,15 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-
 @Entity
 @Table(name="trx_jual_detail")
-public class penjualadetail implements Serializable {
 
+public class PenjualanDetail implements Serializable {
+	
 	@Id
 	@GeneratedValue(generator = "system-uuid")
-	@GenericGenerator(name="system-uuid", strategy ="uuid2")
-	private String Id;
+	@GenericGenerator(name = "system-uuid", strategy = "uuid2")
+	private String id;
 	
 	@ManyToOne
 	private penjualan header;
@@ -33,6 +33,4 @@ public class penjualadetail implements Serializable {
 	
 	@Column(name="total_harga")
 	private BigDecimal totalHarga;
-		
-	
-} 
+}
